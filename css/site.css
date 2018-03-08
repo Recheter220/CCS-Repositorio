@@ -1,0 +1,162 @@
+body, form {
+	margin: 0;
+	padding: 0;
+}
+
+textarea {
+	resize: vertical;
+}
+
+.form-center {
+	width: 500px;
+}
+
+.recSenha a {
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+	width: 100%;
+	padding: 10px 0 10px;
+	font-size: 12px;
+}
+
+.recSenha {
+	background-color: #e5e5e5;
+}
+
+.btnLogin {
+	background-color: #0260a3;
+	
+	font-weight: bold;
+	color: white;
+	border: 0;
+	webkit-transition: background-color 0.2s;
+	transition: background-color 0.2s;
+}
+
+.btnLogin:hover {		
+	background-color: #f8931e;
+}
+
+fieldset {
+	text-align: left;
+	position: relative;
+	left: 0%;
+	width: 90%;
+	margin: auto;
+	border: 0;
+}
+
+fieldset:not(:first-of-type){
+	display: none;
+}
+	
+.form-container {
+	position: relative;
+	width: 90%;
+	margin: auto;
+}
+
+.form-center {
+	margin: auto;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+	
+.form-center h1 {
+	text-align: center;
+}
+
+.div-frame {
+	position: relative;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin: 10px;
+	padding: 10px;
+}
+
+.wrapper {
+	position: relative;
+}
+	
+.txt-form-center {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 5px;
+}
+
+.btn-block {
+	margin-bottom: 20px;
+}
+
+.center {
+	display: block;
+	margin: auto;
+}
+
+h1.center, h2.center, h3.center, h4.center, h5.center, h6.center  {
+	padding-bottom: 10px;
+	text-align: center;
+}
+
+.no-wrap {
+	white-space: nowrap;
+}
+
+.no-hand {
+	cursor: default;
+}
+
+.img-perfil {
+	width: 3cm;
+	height: 4cm;
+	
+}
+
+tr.separator {
+	height: 20px;
+	background: transparent;
+}
+
+tr.separator:hover {
+	background: transparent;
+}
+
+@media only screen and (max-width: 1366px){
+	
+}
+
+.inline {
+	display: inline-block;
+	width: auto;
+	margin-left: 25px;
+}
+
+/* Bootstrap override BEGIN */
+.navbar-nav > li > a.btn-danger {
+	color: white;
+	font-weight: bold;
+}
+
+.navbar-nav > li > a.btn-danger:hover {
+	background-color: #a94442;
+	color: white;
+}
+
+.table > tbody.row-center > tr > th,
+.table > tbody.row-center > tr > td {
+	text-align: center;
+	vertical-align: middle;
+}
+/* Bootstrap Override END */
+
+.verde {
+	color: #5cb85c;
+}
+
+.vermelho {
+	color: #ac2925;
+}

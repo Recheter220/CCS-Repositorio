@@ -13,7 +13,7 @@ function alteraAno() {
 function confirm(titulo, corpo, callbackTrue = null, paramsTrue = null, callbackFalse = null, paramsFalse = null) {
 	swal({
 		title: titulo, // "Confirmar aprovação",
-		html: corpo, // "Você tem certeza de que deseja alterar o status do documento selecionado para <strong>aprovado</strong>?",
+		html: corpo, // "Você tem certeza de que deseja alterar o status do artigo selecionado para <strong>aprovado</strong>?",
 		type: "question", 
 		confirmButtonText: "Sim", 
 		showCancelButton: true, 
@@ -87,12 +87,12 @@ function atualizaStatusArtigo(id, estado, botao, motivo = "") {
 						html: "Status modificado com sucesso!",
 						type: "success"
 					});
-					td.innerHTML = xhttp.responseText;
+					td.innerHTML = "Ações: " + xhttp.responseText;
 				}
 				else {
 					swal({
 						title: "Ocorreu um erro",
-						html: "Não foi possível alterar o status do documento." + 
+						html: "Não foi possível alterar o status do artigo." + 
 							" A seguinte mensagem foi retornada: <br /><strong>" + 
 							xhttp.responseText + 
 							"</strong>. <br />Caso o problema persista, entre em contato com o administrador. ",

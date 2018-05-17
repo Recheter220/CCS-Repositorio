@@ -8,7 +8,9 @@ textarea {
 }
 
 .form-center {
-	width: 500px;
+	min-width: 500px;
+	max-width: 80%;
+	width: 80%;
 }
 
 .recSenha a {

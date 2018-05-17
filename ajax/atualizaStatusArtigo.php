@@ -4,7 +4,7 @@
 		require("../include/functions.php");
 		require("../include/conexao.php");
 
-		$id = isset($_POST["id"]) ? $_POST["id"] : 0;
+		$id_art = isset($_POST["id"]) ? $_POST["id"] : 0;
 		$estado = isset($_POST["estado"]) ? $_POST["estado"] : 0;
 		$motivo = isset($_POST["motivo"]) ? $_POST["motivo"] : "";
 
@@ -19,10 +19,11 @@
 		$params[] = $_SESSION["user"]["id"];
 		$params[] = date("Y-m-d H:i:s");
 		$params[] = $motivo;
-		$params[] = $id;
+		$params[] = $id_art;
 		$tipos = "iissi";
 		SqlExecutar($conn, $consulta, $params, $tipos); 		
 
+		/*
 		$botoes = array();
 		$botoes['apv'][0] = "<button type='button' class='btn btn-primary disabled col-xs-4'> 
 				<span class='glyphicon glyphicon-ok' title='Aprovado'></span>
@@ -63,6 +64,56 @@
 					<span class='glyphicon glyphicon-remove' title='Reprovado'></span>
 				</button>";
 				
+		if ($estado == 1) {
+			$barra = $botoes['apv'][0] . $botoes['pnd'][1] . $botoes['rpv'][1];
+		}
+		elseif ($estado == 0) {
+			$barra = $botoes['apv'][1] . $botoes['pnd'][0] . $botoes['rpv'][1];
+		}
+		elseif ($estado == -1) {
+			$barra = $botoes['apv'][1] . $botoes['pnd'][1] . $botoes['rpv'][0];
+		}
+		*/
+		$botoes = array();
+		$botoes['apv'][0] = "<button type='button' class='btn btn-primary disabled' title='Aprovar'> 
+				<span class='glyphicon glyphicon-ok'></span>
+			</button>";
+		$botoes['apv'][1] = "<button class='btn btn-success' title='Aprovar' 
+						onclick='confirm(
+							\"Confirmar aprovação\", 
+							\"Você tem certeza de que deseja alterar o status do artigo selecionado para <strong>aprovado</strong>?\", 
+							atualizaStatusArtigo, [$id_art, 1, this]
+						)'>
+					<span class='glyphicon glyphicon-ok'></span>
+				</button>";
+		$botoes['pnd'][0] = "<button type='button' class='btn btn-primary disabled' title='Deixar pendente'> 
+				<span class='glyphicon glyphicon-option-horizontal'></span>
+			</button>";
+		$botoes['pnd'][1] = "<button class='btn btn-warning' title='Deixar pendente' 
+						onclick='confirm(
+							\"Confirmar pendência\", 
+							\"Você tem certeza de que deseja alterar o status do artigo selecionado para <strong>pendente</strong>?\", 
+							atualizaStatusArtigo, [$id_art, 0, this]
+						)'>
+					<span class='glyphicon glyphicon-option-horizontal'></span>
+				</button>";
+		$botoes['rpv'][0] = "<button type='button' class='btn btn-primary disabled' title='Reprovar'> 
+				<span class='glyphicon glyphicon-remove'></span>
+			</button>";
+		$botoes['rpv'][1] = "<button class='btn btn-danger' title='Reprovar' 
+						onclick='confirm(
+							\"Confirmar reprovação\", 
+							\"Você tem certeza de que deseja alterar o status do artigo selecionado para <strong>reprovado</strong>?\", 
+							prompt, [
+								\"Motivo\", 
+								\"Informe o motivo pelo qual o artigo foi reprovado\", 
+								\"\", 
+								atualizaStatusArtigo, [$id_art, -1, this]
+							]
+						)'>
+					<span class='glyphicon glyphicon-remove'></span>
+				</button>";
+	
 		if ($estado == 1) {
 			$barra = $botoes['apv'][0] . $botoes['pnd'][1] . $botoes['rpv'][1];
 		}

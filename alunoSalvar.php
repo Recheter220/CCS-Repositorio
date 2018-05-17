@@ -36,19 +36,17 @@
 				$consulta = "UPDATE tb_usuario u
 					INNER JOIN tb_aluno a ON a.user_id = u.user_id
 					SET 
-					u.user_nome = ?,
 					u.user_cpf = ?,
 					u.user_email = ?,
 					a.aluno_nome = ?
 					WHERE a.aluno_id = ?";
 
 				unset($params);
-				$params[] = $aluno["nome"];
 				$params[] = $aluno["cpf"];
 				$params[] = $aluno["email"];
 				$params[] = $aluno["nome"];
 				$params[] = $aluno["id"];
-				$tipos = "ssssi";
+				$tipos = "sssi";
 				SqlExecutar($conn, $consulta, $params, $tipos);
 
 				unset($_SESSION['modal']);

@@ -84,7 +84,6 @@
 				<div class="btn"></div>
 			</div>
 		</form>
-		<script src="../js/custom-file-input.js"></script>
 	</div>
 <?php 
 	require_once('include/html_end.php');

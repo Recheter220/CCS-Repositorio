@@ -12,16 +12,25 @@
 	if ($_SESSION['user']['tipo'] == 'Aluno') {
 		if (isset($_GET['id']) || isset($_POST['id'])) {
 			$id = isset($_GET['id']) ? $_GET['id'] : $_POST['id'];
-			$consulta = 'SELECT aluno_id FROM tb_artigo WHERE art_id = ?';
-			unset($params);
-			$params[] = $id;
-			$tipos = 'i';
-			$result = SqlPesquisar($conn, $consulta, $params, $tipos);
-			if ($result[0]['aluno_id'] == $_SESSION['user']['aluno_id']) {
+			if ($id != 0) {
+				$consulta = 'SELECT aluno_id FROM tb_artigo WHERE art_id = ?';
+				unset($params);
+				$params[] = $id;
+				$tipos = 'i';
+				$result = SqlPesquisar($conn, $consulta, $params, $tipos);
+				if ($result[0]['aluno_id'] == $_SESSION['user']['aluno_id']) {
+					$restrito = false;
+				}
+			}
+			else {
 				$restrito = false;
 			}
 		}
+		else {
+			$restrito = false;
+		}
 	}
+	
 	if ($restrito) {
 		$conn->close();
 		unset($_SESSION['modal']);
@@ -40,8 +49,6 @@
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		if ($_POST["acao"] == "Salvar") {			
 			$erros = "";
-
-			
 			foreach (array_keys($_FILES) as $chave) {
 				$arq = $_FILES[$chave];
 				$upload_path = "uploads/artigos/";
@@ -90,6 +97,11 @@
 					}
 					finfo_close($finfo);
 				}
+				elseif ($arq['error'] == UPLOAD_ERR_NO_FILE)
+				{
+					$success = true;
+					//die('ok');
+				}
 			}
 
 			if (empty($titulo)) {
@@ -104,6 +116,10 @@
 				}
 				header("Location: artigoSalvar.php");
 				die();
+			}
+			else {
+				var_dump($erros);
+				var_dump($success);
 			}
 		}
 		elseif ($_POST["acao"] == "Apagar") {
@@ -135,7 +151,7 @@
 			}
 		}
 	}
-	$link_active = "d";
+	$link_active = "a";
 	require("include/html_begin.php"); 
 ?>
 	<script src="js/jquery.mask.min.js"></script>
@@ -145,6 +161,8 @@
 			window.open(path, "_blank");
 		}
 	</script>
+	<script src="plugins/tinymce/tinymce.min.js"></script>
+	<script>tinymce.init({ selector:'textarea' });</script>
 <?php require("include/body_begin.php"); ?>
 	<div class="container">
 		<form class="form-center" action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="POST" enctype="multipart/form-data">
@@ -159,7 +177,7 @@
 				</div>
 				<div class="form-group">
 					<label for="artResumo"> Resumo </label>
-					<textarea class="form-control" name="resumo" id="artResumo" placeholder="Resumo do artigo conforme consta no Abstract" required="required"><?= $resumo ?></textarea>
+					<textarea class="form-control" name="resumo" id="artResumo" rows="15" placeholder="Resumo do artigo conforme consta no Abstract"><?= $resumo ?></textarea>
 				</div>
 				<div class="form-group">
 					<input type='file' accept='.pdf' class='inputfile inputfile-1' id='artCaminho' name='caminho' />
@@ -170,14 +188,14 @@
 					<?php 
 						if (!empty($caminho)) {
 							if ($status == 1) {
-								$botaoStatus = "<span class='btn no-hand btn-success  glyphicon glyphicon-ok' title='Aprovado'></span>";
+								$botaoStatus = "<span class='btn no-hand btn-success  glyphicon glyphicon-ok form-control' title='Aprovado'></span>";
 								$fileInput = "<span class='btn disabled btn-primary ' title='Documento já aprovado'> Documento já aprovado </span>";
 							}
 							elseif ($status == 0) {
-								$botaoStatus = "<span class='btn no-hand btn-warning  glyphicon glyphicon-option-horizontal' title='Pendente'></span>";
+								$botaoStatus = "<span class='btn no-hand btn-warning  glyphicon glyphicon-option-horizontal form-control' title='Pendente'></span>";
 							}
 							elseif ($status == -1) {
-								$botaoStatus = "<button type='button' class='btn btn-danger ' onclick='
+								$botaoStatus = "<button type='button' class='btn btn-danger form-control' onclick='
 									swal({
 										title: \"O artigo não foi aceito\",
 										html: \"O artigo foi examinado por professor especializado, que não aceitou o artigo com a seguinte justificativa: <br /> <strong> {$comentarioHomologacao} </strong>\",
@@ -190,27 +208,27 @@
 									</button>";
 							}
 							else {
-								$botaoStatus = "<span class='btn no-hand btn-danger  glyphicon glyphicon-alert' title='Erro no carregamento'></span>";
+								$botaoStatus = "<span class='btn no-hand btn-danger glyphicon glyphicon-alert form-control' title='Erro no carregamento'></span>";
 							}
 						}
 						else {
-							$botaoStatus = "<span class='btn no-hand btn-default  glyphicon glyphicon-folder-open' title='Nenhum arquivo foi enviado'></span>";
+							$botaoStatus = "<span class='btn no-hand btn-default glyphicon glyphicon-folder-open form-control' title='Nenhum arquivo foi enviado'></span>";
 							$caminho = "";
 						}
 						echo $botaoStatus;
 
 						if (!(empty($caminho))) {
-							echo "<input type='button' class='btn btn-primary ' onclick='download(\"$caminho\")' value='Visualizar último upload' />";
+							echo "<input type='button' class='btn btn-primary form-control' onclick='download(\"$caminho\")' value='Visualizar último upload' />";
 						}
 						else {
-							echo "<span class='btn btn-primary disabled '> Nenhum arquivo </span>";
+							echo "<span class='btn btn-primary disabled form-control'> Nenhum arquivo </span>";
 						}
 					?>
 				</div>
-				<input type="submit" class="btn btn-primary form-control" name="acao" value="Salvar" />
+				<input type="submit" class="btn btn-primary form-control" style="margin-bottom: 20px;" name="acao" value="Salvar" />
 			</div>
 		</form>
-		<script src="js/custom-file-input.js"></script>
+		<script src="plugins/CustomFileInputs/js/custom-file-input.js"></script>
 	</div>
 <?php 
 	require_once('include/html_end.php');

@@ -10,4 +10,3 @@
 <?php } ?>
 <?php unset($_SESSION['modal']); ?>
 </html>
-<?php ob_end_flush(); ?>

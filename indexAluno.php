@@ -55,8 +55,8 @@
 							case -1: 
 								$status = "<button type='button' class='btn btn-danger ' onclick='
 									swal({
-										title: \"O documento não foi aceito\",
-										html: \"Será necessário fazer upload de um novo documento que atenda às especificações do edital.<br />\" + 
+										title: \"O artigo não foi aceito\",
+										html: \"Será necessário fazer upload de um novo artigo que atenda às especificações do edital.<br />\" + 
 												\"Motivo: <strong> {$row['art_comentarioHomologacao']} </strong>\",
 										type: \"error\", 
 										confirmButtonText: \"OK\",
@@ -72,12 +72,13 @@
 						}
 						echo "
 						<div class='div-frame'>
-							<h3> Título: {$row['art_titulo']} </h3>
-							<h4> Resumo: </h4>
+							<h3> <strong> Título: </strong> {$row['art_titulo']} $status </h3>
+							<h4> <strong> Resumo: </strong> </h4>
 							<p> {$row['art_resumo']} </p>
-							<p> $status </p>
-							<input type='button' class='btn btn-primary' onclick='download(\"{$row['art_caminho']}\")' value='Visualizar artigo enviado' />
-							<a class='btn btn-primary' href='artigoCadastro.php?id={$row['art_id']}'> Editar informações </a>
+							<p> 
+								<input type='button' class='btn btn-primary' onclick='download(\"{$row['art_caminho']}\")' value='Visualizar artigo enviado' />
+								<a class='btn btn-primary' href='artigoCadastro.php?id={$row['art_id']}'> Editar informações </a>
+							</p>
 						</div>";
 					}
 				}

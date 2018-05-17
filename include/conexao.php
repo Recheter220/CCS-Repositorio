@@ -14,12 +14,12 @@
 	else {
 		/* SITE */
 		$servername = "localhost"; //Alterar para publicacao
-		$dbName = "repositorio";
-		$userSelect = "root";
-		$userModify = "root";
+		$dbName = "id5001777_repositorio";
+		$userSelect = "id5001777_reposccs";
+		$userModify = "id5001777_reposccs";
 		
-		$pwSelect = "";
-		$pwModify = "";
+		$pwSelect = "ady=)bY%Fs^gCf9m";
+		$pwModify = "ady=)bY%Fs^gCf9m";
 	}
 	
 	$conn = mysqli_connect($servername, $userModify, $pwModify, $dbName);

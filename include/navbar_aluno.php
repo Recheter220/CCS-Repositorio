@@ -11,6 +11,7 @@
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 				<li class="<?php if ($link_active == "h") echo "active"; ?>"><a href="index.php"> Início </a></li>
+				<li class="<?php if ($link_active == "a") echo "active"; ?>"><a href="artigoCadastro.php"> Enviar Artigo </a></li>				
 				<li class="<?php if ($link_active == "d") echo "active"; ?>"><a href="alunoCadastro.php"> Editar Cadastro </a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
